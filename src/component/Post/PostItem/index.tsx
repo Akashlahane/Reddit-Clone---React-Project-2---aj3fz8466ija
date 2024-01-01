@@ -118,6 +118,7 @@ const PostItem: React.FC<PostItemProps> = ({
                         boxSize="18px"
                         src={post.communityImageURL.toString()}  //.to string chatgpt solution
                         mr={2}
+                        alt="communityLogo"
                       />
                     ) : (
                       <Icon as={FaReddit} fontSize={18} mr={1} color="blue.500" />

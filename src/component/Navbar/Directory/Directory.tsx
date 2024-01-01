@@ -24,7 +24,7 @@ const Directory: React.FC=()=>{
                     <Flex align="center"> 
                         {directoryState.selectedMenuItem.imageURL? (
                             <Image src={directoryState.selectedMenuItem.imageURL} borderRadius="full" 
-                            boxSize="24px"  mr={2}/>
+                            boxSize="24px"  mr={2} alt="memuItemImage"/>
                         ):(
 
                             <Icon fontSize={24} mr={{base:1, md:2}} as={directoryState.selectedMenuItem.icon}

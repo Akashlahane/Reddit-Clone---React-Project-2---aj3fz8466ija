@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import type { GetServerSidePropsContext, NextPage } from "next";

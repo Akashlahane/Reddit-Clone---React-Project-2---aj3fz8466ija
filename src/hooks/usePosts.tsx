@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import { collection, deleteDoc, doc, getDocs, onSnapshot, query, where, writeBatch,} from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";

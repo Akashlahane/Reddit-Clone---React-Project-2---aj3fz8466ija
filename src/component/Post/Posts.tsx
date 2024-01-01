@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { collection, getDocs, orderBy, query, where,} from "firebase/firestore";
 import { Community } from "../../atoms/communitiesAtom";

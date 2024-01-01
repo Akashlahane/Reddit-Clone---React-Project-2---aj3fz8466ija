@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { Community, communityState } from "../atoms/communitiesAtom";

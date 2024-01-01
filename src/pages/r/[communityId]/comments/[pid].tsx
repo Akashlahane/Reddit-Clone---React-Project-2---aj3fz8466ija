@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/router";

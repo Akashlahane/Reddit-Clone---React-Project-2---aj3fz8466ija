@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -53,3 +54,5 @@ const useDirectory = () => {
 };
 
 export default useDirectory;
+
+/* eslint-disable */

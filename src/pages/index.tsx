@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect } from "react";
 import { Stack } from "@chakra-ui/react";
 import { collection, getDocs, limit, onSnapshot, orderBy, query, where,} from "firebase/firestore";

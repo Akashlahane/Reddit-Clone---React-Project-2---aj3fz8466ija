@@ -85,7 +85,7 @@ const Recommendations: React.FC = () => {
                 return (
                    
                     <Flex
-                       key={index}     //builderror1
+                        key={index}
                         position="relative"
                         align="center"
                         fontSize="10pt"
@@ -105,6 +105,7 @@ const Recommendations: React.FC = () => {
                                     borderRadius="full"
                                     boxSize="28px"
                                     src={item.imageURL}
+                                    alt="coommunitylogo"
                                     mr={2}
                                 />
                                 ) : (

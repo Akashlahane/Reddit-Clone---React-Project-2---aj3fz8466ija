@@ -9,7 +9,7 @@ import useDirectory from "@/hooks/useDirectory";
 import { defaultMenuItem } from "@/atoms/directoryMenuAtom";
 
 const Navbar: React.FC= () =>  {
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const {onSelectMenuItem} = useDirectory();
 
   return (
@@ -26,8 +26,8 @@ const Navbar: React.FC= () =>  {
        cursor="pointer"
        onClick={()=> onSelectMenuItem(defaultMenuItem)}
       >
-        <Image src="/images/redditFace.svg" height="30px" />
-        <Image src="/images/redditText.svg" height="46px" display={{ base: "none", md: "unset" }}/>
+        <Image src="/images/redditFace.svg"  alt="redditlogo" height="30px" />
+        <Image src="/images/redditText.svg" alt="redditTextLogo" height="46px" display={{ base: "none", md: "unset" }}/>
       </Flex>
       {user && <Directory />}
       <SearchInput user={user}/>

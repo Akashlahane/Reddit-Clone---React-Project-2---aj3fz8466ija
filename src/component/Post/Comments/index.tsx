@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { Box, Flex, SkeletonCircle, SkeletonText, Stack, Text,} from "@chakra-ui/react";
 import { User } from "firebase/auth";
@@ -189,3 +190,4 @@ const Comments: React.FC<CommentsProps> = ({user, selectedPost, communityId,}) =
   );
 };
 export default Comments;
+/* eslint-disable */

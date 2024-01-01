@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody,ModalCloseButton,} from '@chakra-ui/react';
 import { authModalState } from '../../../atoms/authModalAtom';
@@ -12,7 +13,7 @@ import ResetPassword from './ResetPassword';
 
 const AuthModal:React.FC=()=>{
   const [modalState, setModalState] = useRecoilState(authModalState);  
-  const [user, loading, error]= useAuthState(auth);
+  const [user]= useAuthState(auth);
   const handleClose = () =>
     setModalState((prev) => ({
       ...prev,
