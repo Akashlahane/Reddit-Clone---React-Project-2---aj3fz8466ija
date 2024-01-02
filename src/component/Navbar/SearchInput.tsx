@@ -8,6 +8,8 @@ import { useState, useEffect } from "react";
 import { Community } from "@/atoms/communitiesAtom";
 import { firestore } from "../../firebase/clientApp";
 import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
+import { authModalState } from "../../atoms/authModalAtom";
 
 type SearchInputProps = {
   user?: User | null;
@@ -18,8 +20,9 @@ const SearchInput: React.FC<SearchInputProps> = ({ user }) => {
   const [communities, setCommunities] = useState<Community[]>([]);
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const [isCloseIconClicked, setIsCloseIconClicked] = useState(false);
+  const setAuthModalState = useSetRecoilState(authModalState);
   const router = useRouter();
-
+  
   const getCommunityRecommendations = async () => {
     try {
       const communityQuery = query(
@@ -52,6 +55,10 @@ const SearchInput: React.FC<SearchInputProps> = ({ user }) => {
   };
 
   useEffect(() => {
+    if (!user) {
+      setAuthModalState({ open: true, view: "login" });
+      return;
+    }
     handleSearch();
     setIsCloseIconClicked(false);
   }, [input]);

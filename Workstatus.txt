@@ -10,3 +10,4 @@ usedirectory hook if block router.pahname check it should now show home tab when
 Profile removed.
 searchbar working.
 unused code part removed.
+When you are not login you can not search reddit.
