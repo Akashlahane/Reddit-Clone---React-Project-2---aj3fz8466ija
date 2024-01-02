@@ -55,7 +55,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ user }) => {
   };
 
   useEffect(() => {
-    if (!user) {
+    if (!user && input.length>=1) {
       setAuthModalState({ open: true, view: "login" });
       return;
     }
