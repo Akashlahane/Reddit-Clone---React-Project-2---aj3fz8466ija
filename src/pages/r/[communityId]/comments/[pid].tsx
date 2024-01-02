@@ -19,9 +19,7 @@ type PostPageProps = {};
 const PostPage: React.FC<PostPageProps> = () => {
   const [user] = useAuthState(auth);
   const router = useRouter();
-  const { community, pid } = router.query;
   const { communityStateValue } = useCommunityData();
-  // Need to pass community data here to see if current post [pid] has been voted on
   const { postStateValue, setPostStateValue, onDeletePost, loading, setLoading, onVote,} = usePosts();
 
   const fetchPost = async (postId: string) => {

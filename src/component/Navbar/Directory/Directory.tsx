@@ -3,13 +3,10 @@ import {Menu, MenuButton, MenuList, Flex, Icon} from "@chakra-ui/react";
 import React from "react";
 import { Text } from "@chakra-ui/react";
 import Communities from "./Communities";
-import { useState } from "react";
 import useDirectory from "@/hooks/useDirectory";
 import { Image } from "@chakra-ui/react";
 
 const Directory: React.FC=()=>{
-    const [open, setOpen] = useState(false);
-    const handleClose = () => setOpen(false);
     const { directoryState, toggleMenuOpen } = useDirectory();
 
     return (

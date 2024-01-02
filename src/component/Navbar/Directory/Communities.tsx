@@ -5,15 +5,12 @@ import {Box, Flex, Icon, MenuItem, Text} from "@chakra-ui/react";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { communityState } from "@/atoms/communitiesAtom";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../../firebase/clientApp";
 import { FaReddit } from "react-icons/fa";
 import MenuListItem from "./MenuListItem";
 
 type CommunitiesProps={menuOpen: boolean};
 
 const Communities: React.FC=(CommunitiesProps)=>{
-  const [user] = useAuthState(auth);
   const [open, setOpen]=useState(false);
   const mySnippets= useRecoilValue(communityState).mySnippets;
   console.log("akash testing my snippets ", mySnippets );

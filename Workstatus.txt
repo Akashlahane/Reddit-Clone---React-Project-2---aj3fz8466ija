@@ -8,3 +8,5 @@ did changes in navbaer and usedirectory hook so that home will be there
 usedirectory hook if block router.pahname check it should now show home tab when you return from other community to home community.
 
 Profile removed.
+searchbar working.
+unused code part removed.

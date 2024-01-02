@@ -1,4 +1,4 @@
-import React, { Ref } from "react";
+import React from "react";
 import { Flex, Stack, Button, Image } from "@chakra-ui/react";
 
 type ImageUploadProps = {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, Flex, Icon, Text, Image } from "@chakra-ui/react";
 import { FaReddit } from "react-icons/fa";
-import { Community, communityState } from "../../atoms/communitiesAtom";
+import { Community } from "../../atoms/communitiesAtom";
 import useCommunityData from "../../hooks/useCommunityData";
 import { useSetRecoilState } from "recoil";
 

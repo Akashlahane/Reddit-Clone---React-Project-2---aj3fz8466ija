@@ -23,7 +23,6 @@ const Comments: React.FC<CommentsProps> = ({user, selectedPost, communityId,}) =
   const [comments, setComments] = useState<Comment []>([]);
   const [fetchLoading, setFetchLoading] = useState(true);
   const [createLoading, setCreateLoading] = useState(false);
-  const [deleteLoading, setDeleteLoading] = useState("");
   const [loadingDeleteId, setLoadingDeleteId]=useState('');
   const setAuthModalState = useSetRecoilState(authModalState);
   const setPostState = useSetRecoilState(postState);

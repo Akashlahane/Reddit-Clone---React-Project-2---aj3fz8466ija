@@ -13,7 +13,7 @@ export type Post = {
   imageURL?: string;
   communityImageURL?: String,
   createdAt: Timestamp;
-  currentUserVoteStatus?: {           //added 55mv5
+  currentUserVoteStatus?: {  //added 55mv5
     id: string;
     voteValue: number;
   };
