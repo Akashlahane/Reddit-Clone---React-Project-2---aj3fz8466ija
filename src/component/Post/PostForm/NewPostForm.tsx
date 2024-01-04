@@ -65,7 +65,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user, communityImageURL,}) =>
   const handleCreatePost = async () => {
     const {communityId}=router.query;
     const newPost: Post = {
-      //id: "1",
+      id: "1",
       //no need to add id a it works without adding id
       communityId: communityId as string,
       creatorId: user.uid,
