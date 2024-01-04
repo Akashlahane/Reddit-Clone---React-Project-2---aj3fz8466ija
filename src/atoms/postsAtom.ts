@@ -2,7 +2,7 @@ import { atom } from "recoil";
 import { Timestamp } from "firebase/firestore";
 
 export type Post = {
-  id: string;
+  id?: string;  //optional vimp ak update 04-01-24
   communityId: string;
   creatorId: string;
   creatorDisplayName: string; // change to authorDisplayText
