@@ -62,7 +62,7 @@ const usePosts =()=>{
         );
         const newVote: PostVote = {
           id: postVoteRef.id,
-         // postId: post.id,
+          postId: post.id,
           communityId,
           voteValue: vote,
         };
