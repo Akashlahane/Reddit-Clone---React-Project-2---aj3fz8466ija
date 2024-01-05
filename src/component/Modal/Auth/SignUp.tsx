@@ -42,7 +42,6 @@ const SignUp: React.FC= ()=>{
     await addDoc(collection(firestore,"users"),JSON.parse(JSON.stringify(user)));
   };
 
-
   useEffect(()=>{
     if(userCred){
       createUserDocument(userCred.user);
@@ -139,5 +138,4 @@ const SignUp: React.FC= ()=>{
     </form>
   );
 };
-
 export default SignUp;

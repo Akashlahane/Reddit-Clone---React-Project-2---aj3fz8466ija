@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { communityState } from "../atoms/communitiesAtom";
 import { DirectoryMenuItem, defaultMenuItem, directoryMenuState,} from "../atoms/directoryMenuAtom";
 import { FaReddit } from "react-icons/fa";
-import { TiHome } from "react-icons/ti";
+//import { TiHome } from "react-icons/ti";
 
 const useDirectory = () => {
   const [directoryState, setDirectoryState] = useRecoilState(directoryMenuState);
@@ -52,7 +52,5 @@ const useDirectory = () => {
   }, [communityStateValue.currentCommunity]);
   return { directoryState, onSelectMenuItem, toggleMenuOpen };
 };
-
 export default useDirectory;
-
 /* eslint-disable */

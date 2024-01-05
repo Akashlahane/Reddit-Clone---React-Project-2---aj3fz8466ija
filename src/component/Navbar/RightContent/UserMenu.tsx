@@ -19,13 +19,13 @@ type UserMenuProps={
 
 const UserMenu : React.FC<UserMenuProps> = ({user})=>{
     const setAuthModalState = useSetRecoilState(authModalState);
-    const router = useRouter(); // Get the router object
+    const router = useRouter(); 
     
     const logout = async () => {
-        await signOut(auth);
-        router.push('/');
-        //resetCommunityState(defaultCommunityState);
-      };
+      await signOut(auth);
+      router.push('/');
+      //resetCommunityState(defaultCommunityState);
+    };
 
     return (
         <Menu>
@@ -93,5 +93,4 @@ const UserMenu : React.FC<UserMenuProps> = ({user})=>{
         </Menu>
     )
 }
-
 export default UserMenu;

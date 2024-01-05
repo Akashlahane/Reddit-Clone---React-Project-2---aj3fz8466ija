@@ -38,7 +38,6 @@ const useCommunityData=()=>{
     try {
       const snippetDocs= await getDocs(collection(firestore, `users/${user?.uid}/communitySnippets`));
       const snippets= snippetDocs.docs.map((doc)=>({...doc.data()}));
-
       setCommunityStateValue((prev) => ({
         ...prev,
         mySnippets: snippets as CommunitySnippet[],
@@ -51,84 +50,76 @@ const useCommunityData=()=>{
     setLoading(false);
   };
   
- const joinCommunity = async (communityData: Community) => {
-  try {
-    const batch = writeBatch(firestore);
+  const joinCommunity = async (communityData: Community) => {
+    try {
+      const batch = writeBatch(firestore);
+      const newSnippet: CommunitySnippet = { 
+        communityId: communityData.id, 
+        imageURL: communityData.imageURL || "",
+        isModerator: user?.uid === communityData.creatorId,
+      };
+      batch.set(
+        doc( firestore, `users/${user?.uid}/communitySnippets`,
+            communityData.id // will for sure have this value at this point
+          ),
+        newSnippet
+      );
+      batch.update(doc(firestore, "communities", communityData.id), {
+        numberOfMembers: increment(1),
+      });
+      // perform batch writes
+      await batch.commit();
+      // Add current community to snippet
+      setCommunityStateValue((prev) => ({
+        ...prev,
+        mySnippets: [...prev.mySnippets, newSnippet],
+      }));
 
-    const newSnippet: CommunitySnippet = { 
-      communityId: communityData.id, 
-      imageURL: communityData.imageURL || "",
-      isModerator: user?.uid === communityData.creatorId,
-    };
+    } catch (error: any) {
+      console.log("joinCommunity error", error);
+      setError(error.message);
+    }
+    setLoading(false);
+  };
 
-    batch.set(
-      doc( firestore, `users/${user?.uid}/communitySnippets`,
-           communityData.id // will for sure have this value at this point
-         ),
-      newSnippet
-    );
+  const leaveCommunity = async (communityId: string) => {
+    try {
+      const batch = writeBatch(firestore);
+      batch.delete(
+        doc(firestore, `users/${user?.uid}/communitySnippets/${communityId}`)
+      );
+      batch.update(doc(firestore, "communities", communityId), {
+        numberOfMembers: increment(-1),
+      });
+      await batch.commit();
+      setCommunityStateValue((prev) => ({
+        ...prev,
+        mySnippets: prev.mySnippets.filter(
+          (item) => item.communityId !== communityId
+        ),
+      }));
+    } catch (error: any) {
+      console.log("leaveCommunity error", error.message);
+      setError(error.message);
+    }
+    setLoading(false);
+  };
 
-    batch.update(doc(firestore, "communities", communityData.id), {
-      numberOfMembers: increment(1),
-    });
-    // perform batch writes
-    await batch.commit();
-    // Add current community to snippet
-    setCommunityStateValue((prev) => ({
-      ...prev,
-      mySnippets: [...prev.mySnippets, newSnippet],
-    }));
-
-  } catch (error: any) {
-    console.log("joinCommunity error", error);
-    setError(error.message);
-  }
-  setLoading(false);
-  
-};
-
-const leaveCommunity = async (communityId: string) => {
-  try {
-    const batch = writeBatch(firestore);
-
-    batch.delete(
-      doc(firestore, `users/${user?.uid}/communitySnippets/${communityId}`)
-    );
-
-    batch.update(doc(firestore, "communities", communityId), {
-      numberOfMembers: increment(-1),
-    });
-
-    await batch.commit();
-
-    setCommunityStateValue((prev) => ({
-      ...prev,
-      mySnippets: prev.mySnippets.filter(
-        (item) => item.communityId !== communityId
-      ),
-    }));
-  } catch (error: any) {
-    console.log("leaveCommunity error", error.message);
-    setError(error.message);
-  }
-  setLoading(false);
-};
-
-const getCommunityData = async (communityId: string) => {
-  try {
-    const communityDocRef = doc(firestore, "communities", communityId as string);
-    const communityDoc = await getDoc(communityDocRef);
-    setCommunityStateValue((prev) => ({
-      ...prev,
-      currentCommunity: {
-        id: communityDoc.id,
-        ...communityDoc.data(),
-      } as Community,
-    }));
-  } catch (error: any) {
-    console.log("getCommunityData error", error.message);
-  }
-};
+  const getCommunityData = async (communityId: string) => {
+    try {
+      const communityDocRef = doc(firestore, "communities", communityId as string);
+      const communityDoc = await getDoc(communityDocRef);
+      setCommunityStateValue((prev) => ({
+        ...prev,
+        currentCommunity: {
+          id: communityDoc.id,
+          ...communityDoc.data(),
+        } as Community,
+      }));
+    } catch (error: any) {
+      console.log("getCommunityData error", error.message);
+    }
+  };
 
 
   useEffect(()=>{

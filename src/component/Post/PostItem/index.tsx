@@ -217,8 +217,6 @@ const PostItem: React.FC<PostItemProps> = ({
         </Flex>
       </Flex>
     </Flex>
-  );
-    
+  );  
 };
-
 export default PostItem;

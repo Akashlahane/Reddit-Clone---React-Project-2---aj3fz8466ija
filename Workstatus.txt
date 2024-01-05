@@ -11,3 +11,14 @@ Profile removed.
 searchbar working.
 unused code part removed.
 When you are not login you can not search reddit.
+
+Deletepost working, Vote working, build working.
+Hot new sorting ui component placed and sorting code remaining.
+
+
+sorting working hot and new.
+Upvote and downvote icreasing and decreasing every time you press button. 
+Only one upvote or only one downvote allowed.
+
+upvote and downvote working.
+unused component removed from code.

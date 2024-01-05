@@ -147,6 +147,5 @@ const SearchInput: React.FC<SearchInputProps> = ({ user }) => {
     </Flex>
   );
 };
-
 export default SearchInput;
 /* eslint-disable */

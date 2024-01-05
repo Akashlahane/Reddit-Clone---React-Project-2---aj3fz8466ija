@@ -5,6 +5,7 @@ import { useSetRecoilState } from "recoil";
 
 const  AuthButtons: React.FC= ()=>{
   const setAuthModalState = useSetRecoilState(authModalState);
+
   return (
     <>
       <Button
@@ -30,5 +31,4 @@ const  AuthButtons: React.FC= ()=>{
     </>
   );
 }
-
 export default AuthButtons;

@@ -25,6 +25,5 @@ const SubmitPostPage: React.FC =()=>{
     </PageContent>
  );
 }
-
 export default SubmitPostPage;
 

@@ -1,14 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Box, Button, Divider, Flex, Icon, Skeleton, SkeletonCircle, Stack, Text, Image, Spinner,} from "@chakra-ui/react";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { RiCakeLine } from "react-icons/ri";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, firestore, storage } from "../../firebase/clientApp";
 import { Community, communityState } from "../../atoms/communitiesAtom";
 import moment from "moment";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { FaReddit } from "react-icons/fa";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { doc, updateDoc } from "firebase/firestore";
@@ -31,15 +30,11 @@ const About: React.FC<AboutProps> = ({ communityData, pt, onCreatePage, loading,
   const onUpdateImage = async () => {
     if (!selectedFile) return;
     SetUploadingImage(true);
-
     try {
       const imageRef = ref(storage, `communities/${communityData.id}/image`);
       await uploadString(imageRef, selectedFile, "data_url");
       const downloadURL = await getDownloadURL(imageRef);
-      await updateDoc(doc(firestore, "communities", communityData.id), {
-        imageURL: downloadURL,
-      });
-     
+      await updateDoc(doc(firestore, "communities", communityData.id), {imageURL: downloadURL,});
       setCommunityStateValue(prev => ({
         ...prev,
         currentCommunity: {
@@ -47,7 +42,6 @@ const About: React.FC<AboutProps> = ({ communityData, pt, onCreatePage, loading,
           imageURL: downloadURL,
         } as Community,
       }));
-
     } catch (error: any) {
       console.log("updateImage error", error.message);
     }
@@ -190,5 +184,4 @@ const About: React.FC<AboutProps> = ({ communityData, pt, onCreatePage, loading,
     </Box>
   );
 };
-
 export default About;

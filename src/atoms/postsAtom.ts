@@ -2,10 +2,10 @@ import { atom } from "recoil";
 import { Timestamp } from "firebase/firestore";
 
 export type Post = {
-  id?: string;  //optional vimp ak update 04-01-24
+  id?: string; 
   communityId: string;
   creatorId: string;
-  creatorDisplayName: string; // change to authorDisplayText
+  creatorDisplayName: string; 
   title: string;
   body: string;
   numberOfComments: number;
@@ -13,7 +13,7 @@ export type Post = {
   imageURL?: string;
   communityImageURL?: String,
   createdAt: Timestamp;
-  currentUserVoteStatus?: {  //added 55mv5
+  currentUserVoteStatus?: {  
     id: string;
     voteValue: number;
   };

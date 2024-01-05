@@ -14,6 +14,7 @@ type MenuListItemProps = {
 const MenuListItem: React.FC<MenuListItemProps> = ({
   displayText, link,icon, iconColor,imageURL,}) => {
   const { onSelectMenuItem } = useDirectory();
+  
   return (
     <MenuItem
       width="100%"
