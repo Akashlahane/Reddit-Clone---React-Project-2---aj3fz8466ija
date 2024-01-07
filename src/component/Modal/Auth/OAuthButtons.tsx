@@ -40,6 +40,5 @@ const OAuthButtons: React.FC= ()=>{
     </Flex>
   );
 };
-
 export default  OAuthButtons;
 

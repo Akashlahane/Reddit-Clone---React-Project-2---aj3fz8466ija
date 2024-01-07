@@ -193,5 +193,4 @@ const usePosts =()=>{
     setLoading,         //ak improvise
   };
 }
-
 export default usePosts;

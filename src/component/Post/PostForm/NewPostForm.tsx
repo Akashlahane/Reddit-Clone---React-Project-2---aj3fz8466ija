@@ -51,7 +51,6 @@ type NewPostFormProps = {
   user: User;
 };
 
-
 const NewPostForm: React.FC<NewPostFormProps> = ({ user, communityImageURL,}) => {
   const router= useRouter();
   const [selectedTab, setSelectedTab] = useState(formTabs[0].title);
@@ -88,7 +87,8 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user, communityImageURL,}) =>
         const downloadURL= await getDownloadURL(imageRef);
         await updateDoc(postDocRef,{imageURL: downloadURL});
       }
-      router.back();
+      //router.back(); to solve problem when you click on post whenchat section is open
+      router.push(`/r/${communityId}`)
     }
     catch(error: any){
         console.log("handleCreatePost error", error.message);
@@ -149,5 +149,4 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user, communityImageURL,}) =>
     </Flex>
   );
 };
-
 export default NewPostForm;

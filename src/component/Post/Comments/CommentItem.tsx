@@ -1,8 +1,9 @@
-import { Avatar, Box, Flex, Icon, Spinner, Stack, Text,} from "@chakra-ui/react";
+import {  Box, Flex, Icon, Spinner, Stack, Text,} from "@chakra-ui/react";
 import moment from "moment";
 import { FaReddit } from "react-icons/fa";
-import { IoArrowDownCircleOutline, IoArrowUpCircleOutline,} from "react-icons/io5";
 import { Timestamp } from "firebase/firestore";
+import { AiOutlineDelete } from "react-icons/ai";
+//import { IoArrowDownCircleOutline, IoArrowUpCircleOutline,} from "react-icons/io5";
 
 export type Comment = {
   id?: string;
@@ -58,20 +59,23 @@ const CommentItem: React.FC<CommentItemProps> = ({
           fontWeight={600}
           color="gray.500"
         >
-          <Icon as={IoArrowUpCircleOutline} />
-          <Icon as={IoArrowDownCircleOutline} />
+          {/*<Icon as={IoArrowUpCircleOutline} />
+          <Icon as={IoArrowDownCircleOutline} />*/}
+
           {userId === comment.creatorId && (
             <>
-              <Text fontSize="9pt" _hover={{ color: "blue.500" }}>
+              {/*<Text fontSize="9pt" _hover={{ color: "blue.500" }}>
                 Edit
-              </Text>
-              <Text
-                fontSize="9pt"
-                _hover={{ color: "blue.500" }}
-                onClick={() => onDeleteComment(comment)}
-              >
-                Delete
-              </Text>
+              </Text>*/}
+              <Flex onClick={() => onDeleteComment(comment)}>
+                <Icon as={AiOutlineDelete} mr={1} />
+                <Text
+                  fontSize="9pt"
+                  _hover={{ color: "blue.500" }}
+                >
+                  Delete
+                </Text>
+              </Flex>
             </>
           )}
         </Stack>
@@ -79,5 +83,4 @@ const CommentItem: React.FC<CommentItemProps> = ({
     </Flex>
   );
 };
-
 export default CommentItem;

@@ -1,8 +1,28 @@
 import React from "react";
 import { Flex, Icon, Text, Stack, Button } from "@chakra-ui/react";
 import { GiCheckedShield } from "react-icons/gi";
+import { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { authModalState } from "@/atoms/authModalAtom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth} from "../../firebase/clientApp";
 
 const Premium: React.FC = () => {
+  const setAuthModalState = useSetRecoilState(authModalState);
+  const [user, loadingUser] = useAuthState(auth);
+  const [showMessage, setShowMessage] = useState(false);
+
+  const showNote =()=>{
+    if (!user?.uid) {
+      setAuthModalState({ open: true, view: "login" });
+      return;
+    }
+    setShowMessage(true);
+    setTimeout(() => {
+      setShowMessage(false);
+    }, 2000);
+  }
+
   return (
     <Flex
       direction="column"
@@ -20,9 +40,10 @@ const Premium: React.FC = () => {
           <Text>The best Reddit experience, with monthly Coins</Text>
         </Stack>
       </Flex>
-      <Button height="30px" bg="brand.100">
+      <Button height="30px" bg="brand.100" onClick={showNote}>
         Try Now
       </Button>
+      {showMessage && <Text textAlign="center" mt={2} fontSize="10pt" color="red.400">Feature Comming Soon</Text>}
     </Flex>
   );
 };

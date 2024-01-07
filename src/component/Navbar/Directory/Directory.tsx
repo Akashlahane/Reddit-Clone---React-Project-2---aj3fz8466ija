@@ -5,9 +5,13 @@ import { Text } from "@chakra-ui/react";
 import Communities from "./Communities";
 import useDirectory from "@/hooks/useDirectory";
 import { Image } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { TiHome } from "react-icons/ti";
+import { BiLabel } from "react-icons/bi";
 
 const Directory: React.FC=()=>{
     const { directoryState, toggleMenuOpen } = useDirectory();
+    const router = useRouter();
 
     return (
         <Menu isOpen={directoryState.isOpen}>
@@ -19,17 +23,23 @@ const Directory: React.FC=()=>{
             >
                 <Flex align="center" justify="space-between" width={{base:"auto", lg:"200px"}}>
                     <Flex align="center"> 
-                        {directoryState.selectedMenuItem.imageURL? (
-                            <Image src={directoryState.selectedMenuItem.imageURL} borderRadius="full" 
-                            boxSize="24px"  mr={2} alt="memuItemImage"/>
-                        ):(
 
-                            <Icon fontSize={24} mr={{base:1, md:2}} as={directoryState.selectedMenuItem.icon}
+                        { (directoryState.selectedMenuItem.imageURL && router.pathname !== "/") && <Image src={directoryState.selectedMenuItem.imageURL} borderRadius="full" 
+                            boxSize="24px"  mr={2} alt="memuItemImage"/>
+                        }
+
+                        { (!directoryState.selectedMenuItem.imageURL && router.pathname !== "/") && 
+                          <Icon fontSize={24} mr={{base:1, md:2}} as={directoryState.selectedMenuItem.icon}
                             color={directoryState.selectedMenuItem.iconColor}/>
-                        )}
+                        }
+                        
+                        { router.pathname === "/" && <Icon fontSize={24} mr={{base:1, md:2}} as={TiHome}
+                           color="black"/>
+                        }
+
                         <Flex display={{base:"none", lg:"flex"}}>
                             <Text fontWeight={600} fontSize="10pt">
-                              {directoryState.selectedMenuItem.displayText}
+                              {router.pathname==="/"? "Home" : directoryState.selectedMenuItem.displayText}
                             </Text>
                         </Flex>
                     </Flex>
@@ -38,9 +48,11 @@ const Directory: React.FC=()=>{
             </MenuButton>
             <MenuList> 
                 <Communities/>
+                <Text textAlign="left"  ml={{base:0, md:2}} fontSize="10pt" color="red.400">
+                   Select or Create Community
+                </Text>
             </MenuList>
         </Menu>
     )
 }
-
 export default Directory;

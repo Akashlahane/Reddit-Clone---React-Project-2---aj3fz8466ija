@@ -103,5 +103,4 @@ const ResetPassword: React.FC= ()=>{
     </Flex>
   );
 };
-
 export default ResetPassword;

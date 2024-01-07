@@ -35,9 +35,17 @@ const PostItem: React.FC<PostItemProps> = ({
   const singlePostView = !onSelectPost; // function not passed to [pid]
   const [error, setError]=useState(false);
   const router =useRouter();
+  const [showMessage, setShowMessage] = useState(false);
   
   const handleDelete = async (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
+    if (!userIsCreator) {
+      setShowMessage(true);
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 5000);
+      return;
+    }
     setLoadingDelete(true);
     try {
       const success = await onDeletePost(post);
@@ -61,7 +69,6 @@ const PostItem: React.FC<PostItemProps> = ({
       borderRadius={singlePostView ? "4px 4px 0px 0px" : 4}
       cursor={singlePostView ? "unset" : "pointer"}
       _hover={{ borderColor: singlePostView ? 'none' : "gray.500" }}
-      onClick={() => onSelectPost && post && onSelectPost(post)}
     >
       <Flex
         direction="column"
@@ -160,7 +167,8 @@ const PostItem: React.FC<PostItemProps> = ({
             )}
           </Stack>
 
-          <Flex ml={1} mb={0.5} color="gray.500" fontWeight={600}>
+          <Flex ml={1} mb={0.5} color="gray.500" fontWeight={600} 
+           onClick={() => onSelectPost && post && onSelectPost(post)}>
             <Flex
               align="center"
               p="8px 10px"
@@ -171,29 +179,30 @@ const PostItem: React.FC<PostItemProps> = ({
               <Icon as={BsChat} mr={2} />
               <Text fontSize="9pt">{post.numberOfComments}</Text>
             </Flex>
-          <Flex
-            align="center"
-            p="8px 10px"
-            borderRadius={4}
-            _hover={{ bg: "gray.200" }}
-            cursor="pointer"
-          >
-            <Icon as={IoArrowRedoOutline} mr={2} />
-            <Text fontSize="9pt">Share</Text>
-          </Flex>
 
-          <Flex
-            align="center"
-            p="8px 10px"
-            borderRadius={4}
-            _hover={{ bg: "gray.200" }}
-            cursor="pointer"
-          >
-            <Icon as={IoBookmarkOutline} mr={2} />
-            <Text fontSize="9pt">Save</Text>
-          </Flex>
+            {/* <Flex
+              align="center"
+              p="8px 10px"
+              borderRadius={4}
+              _hover={{ bg: "gray.200" }}
+              cursor="pointer"
+            >
+              <Icon as={IoArrowRedoOutline} mr={2} />
+              <Text fontSize="9pt">Share</Text>
+            </Flex>
 
-          {userIsCreator && (
+            <Flex
+              align="center"
+              p="8px 10px"
+              borderRadius={4}
+              _hover={{ bg: "gray.200" }}
+              cursor="pointer"
+            >
+              <Icon as={IoBookmarkOutline} mr={2} />
+              <Text fontSize="9pt">Save</Text>
+            </Flex>*/}
+
+           {true && (
             <Flex
               align="center"
               p="8px 10px"
@@ -213,10 +222,19 @@ const PostItem: React.FC<PostItemProps> = ({
               )}
                
             </Flex>
-          )}
-        </Flex>
+             )}
+            
+            {showMessage && 
+              <Flex  align="center"
+                color="red.400"
+                fontSize="9pt"
+                borderRadius={4}>Only Post-Creator can delete the post
+              </Flex>
+            }
+          </Flex>
       </Flex>
     </Flex>
   );  
 };
 export default PostItem;
+

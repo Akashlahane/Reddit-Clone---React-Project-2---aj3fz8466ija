@@ -12,6 +12,7 @@ import { FaReddit } from "react-icons/fa";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { doc, updateDoc } from "firebase/firestore";
 import useSelectFile from "@/hooks/useSelectFile";
+import useCommunityData from "@/hooks/useCommunityData";
 
 type AboutProps = {
   communityData: Community;
@@ -26,6 +27,20 @@ const About: React.FC<AboutProps> = ({ communityData, pt, onCreatePage, loading,
   const setCommunityStateValue = useSetRecoilState(communityState);
   const {selectedFile, setSelectedFile,onSelectFile}= useSelectFile();
   const [uploadingImage, SetUploadingImage] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
+
+  const showNote =()=>{
+    setShowMessage(true);
+    setTimeout(() => {
+      setShowMessage(false);
+    }, 3500);
+  }
+
+  const { communityStateValue} = useCommunityData();
+  const isJoined = !!communityStateValue.mySnippets.find(      //!! converted to boolean value
+    (item) => item.communityId === communityData.id
+  );
+  console.log(communityData.id, isJoined);
 
   const onUpdateImage = async () => {
     if (!selectedFile) return;
@@ -120,13 +135,21 @@ const About: React.FC<AboutProps> = ({ communityData, pt, onCreatePage, loading,
                   </Text>
                 )}
               </Flex>
-              {!onCreatePage && (
-                <Link href={`/r/${communityData.id}/submit`}> 
-                  <Button mt={3} height="30px">
+                {(!onCreatePage && isJoined) && (
+                  <Link href={`/r/${communityData.id}/submit`}> 
+                    <Button mt={3} height="30px">
+                      Create Post
+                    </Button>
+                  </Link>
+                )}
+
+                {(!onCreatePage && !isJoined) && (
+                  <Flex>
+                  <Button mt={3} height="30px" onClick={showNote}>
                     Create Post
                   </Button>
-                </Link>
-              )}
+                  </Flex>
+                )}
             
               {user?.uid === communityData?.creatorId && (
                 <>
@@ -180,6 +203,9 @@ const About: React.FC<AboutProps> = ({ communityData, pt, onCreatePage, loading,
             </Stack>
           </>
         )}
+
+        {showMessage && <Text p={0.8}
+          mt={2} fontSize="10pt" color="red.400" bg="white">Please join community</Text>}
       </Flex>
     </Box>
   );

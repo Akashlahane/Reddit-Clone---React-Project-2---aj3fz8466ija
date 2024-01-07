@@ -21,4 +21,10 @@ Upvote and downvote icreasing and decreasing every time you press button.
 Only one upvote or only one downvote allowed.
 
 upvote and downvote working.
-unused component removed from code.
+unused component removed from code 06-01-24.
+
+take to next page only when click on message icon.
+When you come back to home page, you can see TiHome icon and "Home" on Home page.
+
+create post check if community is joined
+trial deploy after newton school feedback1

@@ -6,7 +6,7 @@ import { useSetRecoilState } from "recoil";
 import useDirectory from "@/hooks/useDirectory";
 import { authModalState } from "@/atoms/authModalAtom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, firestore } from "../../firebase/clientApp";
+import { auth } from "../../firebase/clientApp";
 
 const PersonalHome: React.FC = () => {
   const [user, loadingUser] = useAuthState(auth);

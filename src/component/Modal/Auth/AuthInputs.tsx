@@ -10,13 +10,10 @@ type AuthInputProps={};
 const AuthInputs: React.FC<AuthInputProps>=()=>{
   const modalState = useRecoilValue(authModalState);
   return (
-
   <Flex direction="column" align="center" width='100%' mt={4}>
     {modalState.view=== "login" && <Login/>}
     {modalState.view=== "signup" && <SignUp/>}
   </Flex>
-
   )
 }
-
 export default  AuthInputs

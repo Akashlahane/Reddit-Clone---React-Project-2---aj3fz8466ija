@@ -32,6 +32,7 @@ const CreatePostLink: React.FC<CreatePostProps> = () => {
   };
 
   return (
+    <>
     <Flex
       justify="space-evenly"
       align="center"
@@ -42,6 +43,7 @@ const CreatePostLink: React.FC<CreatePostProps> = () => {
       borderColor="gray.300"
       p={2}
       mb={4}
+      position="relative"
     >
       <Icon as={FaReddit} fontSize={36} color="gray.300" mr={4} />
       <Input
@@ -68,7 +70,9 @@ const CreatePostLink: React.FC<CreatePostProps> = () => {
       />
       <Icon as={IoImageOutline} fontSize={24} mr={4} color="gray.400" cursor="pointer"/>
       <Icon as={BsLink45Deg} fontSize={24} color="gray.400" cursor="pointer" />
+      
     </Flex>
+    </>
   );
 };
 

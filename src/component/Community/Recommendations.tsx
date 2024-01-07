@@ -6,11 +6,31 @@ import { FaReddit } from "react-icons/fa";
 import { Community } from "../../atoms/communitiesAtom";
 import { firestore } from "../../firebase/clientApp";
 import useCommunityData from "../../hooks/useCommunityData";
+import { useSetRecoilState } from "recoil";
+import { authModalState } from "@/atoms/authModalAtom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth} from "../../firebase/clientApp";
+import { useRouter } from "next/router";
   
 const Recommendations: React.FC = () => {
     const [communities, setCommunities] = useState<Community[]>([]);
     const [loading, setLoading] = useState(false);
     const { communityStateValue, onJoinorLeaveCommunity } = useCommunityData();
+    const [showMessage, setShowMessage] = useState(false);
+    const [user, loadingUser] = useAuthState(auth);
+    const setAuthModalState = useSetRecoilState(authModalState);
+    const router= useRouter();
+
+    const showNote =()=>{
+      if (!user?.uid) {
+        setAuthModalState({ open: true, view: "login" });
+        return;
+      }
+      setShowMessage(true);
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 2000);
+    }
 
     const getCommunityRecommendations = async () => {
         setLoading(true);
@@ -117,9 +137,9 @@ const Recommendations: React.FC = () => {
                                     />
                                     )}
                                     <Link key={item.id} href={`/r/${item.id}`}>
-                                    <span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",}}>
-                                        {`r/${item.id}`}
-                                    </span>
+                                        <span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",}}>
+                                            {`r/${item.id}`}
+                                        </span>
                                     </Link>
                             </Flex>
                             </Flex>
@@ -131,6 +151,7 @@ const Recommendations: React.FC = () => {
                                     onClick={(event) => {
                                     event.stopPropagation();
                                     onJoinorLeaveCommunity(item, isJoined);
+                                      {!isJoined && router.push(`/r/${item.id}`)}
                                     }}
                                     variant={isJoined ? "outline" : "solid"}
                                 >
@@ -143,10 +164,16 @@ const Recommendations: React.FC = () => {
                     })}
 
                     <Box p="10px 20px">
-                        <Button height="30px" width="100%">
+                        <Button height="30px" width="100%" onClick={showNote}>
                             View All
                         </Button>
                     </Box>
+
+                    {showMessage && 
+                         <Text textAlign="center" fontSize="10pt" color="red.400">
+                            Feature Comming Soon
+                         </Text>
+                    }
                 </>
                 )}
             </Flex>

@@ -121,7 +121,6 @@ const useCommunityData=()=>{
     }
   };
 
-
   useEffect(()=>{
     if(!user){
       setCommunityStateValue((prev)=>({
@@ -143,12 +142,10 @@ const useCommunityData=()=>{
     }
   },[router.query, communityStateValue.currentCommunity])
 
-
   return{
     communityStateValue,
     onJoinorLeaveCommunity,
     loading
   }
 }
-
 export default useCommunityData;

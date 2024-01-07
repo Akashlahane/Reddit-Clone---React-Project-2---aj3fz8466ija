@@ -22,6 +22,43 @@ const SearchInput: React.FC<SearchInputProps> = ({ user }) => {
   const [isCloseIconClicked, setIsCloseIconClicked] = useState(false);
   const setAuthModalState = useSetRecoilState(authModalState);
   const router = useRouter();
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(0);
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    switch (event.key) {
+      case "ArrowUp":
+        event.preventDefault();
+        setSelectedIndex((prevIndex) =>
+          prevIndex === null ? searchResults.length - 1 : Math.max(prevIndex - 1, 0)
+        );
+        break;
+      case "ArrowDown":
+        event.preventDefault();
+        setSelectedIndex((prevIndex) =>
+          prevIndex === null ? 0 : Math.min(prevIndex + 1, searchResults.length - 1)
+        );
+        break;
+      case "Enter":
+        if (selectedIndex !== null && searchResults[selectedIndex]) {
+          router.push(`/r/${searchResults[selectedIndex]}`);
+          clearInput();
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    if (!user && input.length >= 1) {
+      setAuthModalState({ open: true, view: "login" });
+      return;
+    }
+    handleSearch();
+    setIsCloseIconClicked(false);
+    setSelectedIndex(null); // Reset selected index when input changes
+  }, [input]);
+
   
   const getCommunityRecommendations = async () => {
     try {
@@ -104,6 +141,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ user }) => {
             bg="gray.50"
             onChange={(event) => setInput(event?.target.value)}
             value={input}
+            onKeyDown={handleKeyDown}
           />
 
           {input && (
@@ -127,7 +165,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ user }) => {
           borderColor="blue.500"
         >
           {/* Display search results */}
-          {searchResults.map((result) => (
+          {searchResults.map((result, index) => (
             <Box
               key={result}
               mt="2px"
@@ -136,10 +174,10 @@ const SearchInput: React.FC<SearchInputProps> = ({ user }) => {
                 clearInput();
               }}
               cursor="pointer"
-              _hover={{bg:"blue.100"}}
+              _hover={{ bg: "blue.100" }}
+              bg={index === selectedIndex ? "blue.100" : undefined}
             >
               <Box pl="15px"> {result} </Box>
-             
             </Box>
           ))}
         </Box>
