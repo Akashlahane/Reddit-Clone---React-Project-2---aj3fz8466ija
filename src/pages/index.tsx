@@ -15,13 +15,15 @@ import Recommendations from "../component/Community/Recommendations";
 import Premium from "../component/Community/Premium";
 import OrderPostby from "@/component/Post/OrderPostby";
 import { useState } from "react";
+import { postOrderState } from "@/atoms/postOrder";
+import { useRecoilState } from "recoil";
 //import PersonalHome from "../component/Community/PersonalHome";
 
 const Home: NextPage = () => {
   const [user, loadingUser] = useAuthState(auth);
   const { postStateValue, setPostStateValue, onVote, onSelectPost, onDeletePost, loading,setLoading,} = usePosts();
-  const [order, setOrder]=useState(true);
   const [sortedPosts, setSortedPosts] = useState<Post[]>([]);
+  const [order, setOrder]=useRecoilState(postOrderState);
 
   const getNoUserHomePosts = async () => {
     setLoading(true);

@@ -4,12 +4,15 @@ import { Box } from "@chakra-ui/react";
 import { BsFire } from "react-icons/bs";
 import { AiTwotoneStar } from "react-icons/ai";
 
+
 type OrderPostbyProps = {
     order: boolean;
     setOrder: (value: boolean) => void;
 };
 
 const OrderPostby: React.FC<OrderPostbyProps> = ({order,setOrder}) => {
+
+  
   return (
     <Flex
       justify="flex-start"
@@ -21,6 +24,7 @@ const OrderPostby: React.FC<OrderPostbyProps> = ({order,setOrder}) => {
       borderColor="gray.300"
       p={2}
       mb={4}
+      display={{base:"flex", md:"none"}}
     >
       <Flex direction="row" justify="center" align="center" cursor="pointer" 
         onClick={()=>setOrder(true)} bg={order ? "gray.300" : "white"}
@@ -28,7 +32,7 @@ const OrderPostby: React.FC<OrderPostbyProps> = ({order,setOrder}) => {
         padding="4px"
         mr={4}>
         <Icon as={BsFire} fontSize={30} mr={1} />
-        <Box mr={2}>Hot</Box>
+        <Box mr={2}>Popular</Box>
       </Flex>
 
       <Flex direction="row" justify="center" align="center" cursor="pointer" 
@@ -39,7 +43,6 @@ const OrderPostby: React.FC<OrderPostbyProps> = ({order,setOrder}) => {
         <Icon as={AiTwotoneStar} fontSize={30} mr={1} />
         <Box mr={2}>New</Box>
      </Flex>
-
     </Flex>
   );
 };

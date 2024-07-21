@@ -12,6 +12,11 @@ import { auth } from "../../../firebase/clientApp";
 import { useSetRecoilState } from "recoil";
 import { authModalState } from "../../../atoms/authModalAtom";
 import { useRouter } from 'next/router';
+import { AiOutlineShopping } from "react-icons/ai";
+import { RxSpeakerLoud } from "react-icons/rx";
+import { BsThreeDots } from "react-icons/bs";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type UserMenuProps={
     user?: User | null;
@@ -27,7 +32,9 @@ const UserMenu : React.FC<UserMenuProps> = ({user})=>{
       //resetCommunityState(defaultCommunityState);
     };
 
-    return (
+    const notify = () => toast("Feature coming soon!");
+
+    return ( <>
         <Menu>
             <MenuButton cursor="pointer" padding="0px 6px" borderRadius={4} _hover={{outline: "1px solid", outlineColor: "gray.500"}}>
                  <Flex align="center">
@@ -54,7 +61,7 @@ const UserMenu : React.FC<UserMenuProps> = ({user})=>{
                             </>  
                         )
                         :
-                        ( <Icon fontSize={24} color="gray.400" mr={1} as={VscAccount}/>)
+                        ( <Icon fontSize={24} color="gray.400" mr={1} as={BsThreeDots}/>)
                     }
                     <ChevronDownIcon/>
                   </Flex>
@@ -80,17 +87,34 @@ const UserMenu : React.FC<UserMenuProps> = ({user})=>{
                     </>
                 ) : (
                     <>
-                      <MenuItem fontSize="10pt" fontWeight={700 } _hover={{bg:"blue.500", color:"white"}} onClick={()=>setAuthModalState({open:true, view:"login" })}>
-                            <Flex align="center"> 
+                      <MenuItem fontSize="10pt" fontWeight={700 } m={0} p={0}>
+                            <Flex direction="column" width={"100%"} m={0} >
+                            <Flex align="center" pl={4} pr={0} pb={2}  pt={2} m={0} _hover={{bg:"blue.500", color:"white"}}
+                                           onClick={()=>setAuthModalState({open:true, view:"signup" })}> 
                                 <Icon fontSize={20} mr={2} as={CgProfile}/>
-                                Log In/ Sign Up
+                                  Sign Up
+                            </Flex>
+                            <Flex align="center"  pl={4} pr={0}  m={0} pb={2}  pt={2} _hover={{bg:"blue.500", color:"white"}}
+                             onClick={notify}> 
+                                <Icon fontSize={20}  mr={2} as={RxSpeakerLoud}/>
+                                  Advertise on Reddit
+                            </Flex>
+                            <Flex align="center" pl={4} pr={0} m={0} pb={2}  pt={2} _hover={{bg:"blue.500", color:"white"}}
+                             onClick={notify}> 
+                                <Icon fontSize={20} mr={2} as={AiOutlineShopping}/>
+                                  Shop Collectibe Avatars
+                            </Flex>
                             </Flex>
                        </MenuItem>
                     </>
                 )}
                 
             </MenuList>
+           
         </Menu>
+        <ToastContainer/>
+    </>
+      
     )
 }
 export default UserMenu;

@@ -6,6 +6,7 @@ import { authModalState } from "../../../atoms/authModalAtom";
 import { auth } from "../../../firebase/clientApp";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { FIREBASE_ERRORS } from "../../../firebase/errors";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; 
 
 type LoginProps={}
 
@@ -13,6 +14,8 @@ const Login:React.FC<LoginProps> = ()=>{
   const setAuthModalState = useSetRecoilState(authModalState)
   const [form, setForm] = useState({email: "", password: "",});
   const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+  const [showPassword, setShowPassword] = useState(false); 
+
   //firebaselogic
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -52,29 +55,37 @@ const Login:React.FC<LoginProps> = ()=>{
           bg="gray.50"
       />
 
-      <Input required 
-        name="password" 
-        placeholder="password" 
-        type="password"  
-        mb={2} 
-        onChange={onChange}
-        fontSize="10pt"
-        _placeholder={{color: "gray.500"}}
-        _hover= {{
-            bg:'white',
-            border: '1px solid',
-            borderColor: 'blue.500',
-          }}
+      <Flex position="relative">
+        <Input required 
+          name="password" 
+          placeholder="password" 
+          type={showPassword ? "text" : "password"} 
+          mb={2} 
+          onChange={onChange}
+          fontSize="10pt"
+          _placeholder={{color: "gray.500"}}
+          _hover= {{
+              bg:'white',
+              border: '1px solid',
+              borderColor: 'blue.500',
+            }}
 
-        _focus= {{
-            outline: 'none',
-            bg:'white',
-            border: '1px solid',
-            borderColor: 'blue.500',
-          }}
+          _focus= {{
+              outline: 'none',
+              bg:'white',
+              border: '1px solid',
+              borderColor: 'blue.500',
+            }}
 
-          bg="gray.50"
-      />
+            bg="gray.50"
+        />
+
+        <Flex onClick={() => setShowPassword(!showPassword)} position="absolute" 
+          right="3%" alignSelf="center" top="25%" zIndex={10}>
+          {!showPassword ? <FaEyeSlash /> : <FaEye />}
+        </Flex>
+      </Flex>
+
 
       {error && (<Text textAlign="center" mt={2} fontSize="10pt" color="red">
       

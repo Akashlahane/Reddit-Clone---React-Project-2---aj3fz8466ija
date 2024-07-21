@@ -9,14 +9,15 @@ import { FIREBASE_ERRORS } from "../../../firebase/errors";
 import { addDoc } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 import { User } from "firebase/auth";
-//import {useAuthState} from "react-firebase-hooks/auth"
+import { FaEye, FaEyeSlash } from "react-icons/fa"; 
 
 const SignUp: React.FC= ()=>{
   const setAuthModalState=useSetRecoilState(authModalState)
   const [signUpForm, setSignUpForm] = useState({ email: "", password: "", confirmPassword: "",});
   const [error, setError] =useState('')
   const [createUserWithEmailAndPassword, userCred, loading, userError] = useCreateUserWithEmailAndPassword(auth);
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
   //firebaselogic
   const onSubmit=(event: React.FormEvent<HTMLFormElement>)=>{
     event.preventDefault();
@@ -73,54 +74,73 @@ const SignUp: React.FC= ()=>{
           bg="gray.50"
       />
 
-      <Input required 
-        name="password" 
-        placeholder="password" 
-        type="password"  
-        mb={2} 
-        onChange={onChange}
-        fontSize="10pt"
-        _placeholder={{color: "gray.500"}}
-        _hover= {{
-            bg:'white',
-            border: '1px solid',
-            borderColor: 'blue.500',
-          }}
+      <Flex position="relative">
+        <Input required 
+          name="password" 
+          placeholder="password" 
+          type={showPassword ? "text" : "password"}  
+          mb={2} 
+          onChange={onChange}
+          fontSize="10pt"
+          _placeholder={{color: "gray.500"}}
+          _hover= {{
+              bg:'white',
+              border: '1px solid',
+              borderColor: 'blue.500',
+            }}
 
-        _focus= {{
-            outline: 'none',
-            bg:'white',
-            border: '1px solid',
-            borderColor: 'blue.500',
-          }}
+          _focus= {{
+              outline: 'none',
+              bg:'white',
+              border: '1px solid',
+              borderColor: 'blue.500',
+            }}
 
-          bg="gray.50"
-      />
+            bg="gray.50"
+        />
 
-      <Input 
-        required 
-        name="confirmPassword" 
-        placeholder="confirm password" 
-        type="password"  
-        mb={2} 
-        onChange={onChange}
-        fontSize="10pt"
-        _placeholder={{color: "gray.500"}}
-        _hover= {{
-            bg:'white',
-            border: '1px solid',
-            borderColor: 'blue.500',
-          }}
+        <Flex onClick={() => setShowPassword(!showPassword)} position="absolute" 
+          right="3%" alignSelf="center" top="25%" zIndex={10}>
+          {!showPassword ? <FaEyeSlash /> : <FaEye />}
+        </Flex>
 
-        _focus= {{
-            outline: 'none',
-            bg:'white',
-            border: '1px solid',
-            borderColor: 'blue.500',
-          }}
+      </Flex>
 
-          bg="gray.50"
-      />
+      <Flex position="relative">
+        <Input 
+          required 
+          name="confirmPassword" 
+          placeholder="confirm password" 
+          type={showPassword2 ? "text" : "password"}   
+          mb={2} 
+          onChange={onChange}
+          fontSize="10pt"
+          _placeholder={{color: "gray.500"}}
+          _hover= {{
+              bg:'white',
+              border: '1px solid',
+              borderColor: 'blue.500',
+            }}
+
+          _focus= {{
+              outline: 'none',
+              bg:'white',
+              border: '1px solid',
+              borderColor: 'blue.500',
+            }}
+
+            bg="gray.50"
+        />
+
+        <Flex onClick={() => setShowPassword2(!showPassword)} position="absolute" 
+          right="3%" alignSelf="center" top="25%" zIndex={10}>
+          {!showPassword2 ? <FaEyeSlash /> : <FaEye />}
+        </Flex>
+      </Flex>
+
+      <Text fontSize="9pt" color="gray.500" mb={2}>
+        Password must have at least four characters, one number and one special character like '*', '@', '#'
+      </Text>
 
       {(error || userError) && (<Text textAlign="center" color="red" fontSize="10pt">{error || FIREBASE_ERRORS[userError?.message as keyof typeof FIREBASE_ERRORS]}</Text>)}
 

@@ -11,7 +11,8 @@ import { authModalState } from "@/atoms/authModalAtom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth} from "../../firebase/clientApp";
 import { useRouter } from "next/router";
-  
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Recommendations: React.FC = () => {
     const [communities, setCommunities] = useState<Community[]>([]);
     const [loading, setLoading] = useState(false);
@@ -20,6 +21,8 @@ const Recommendations: React.FC = () => {
     const [user, loadingUser] = useAuthState(auth);
     const setAuthModalState = useSetRecoilState(authModalState);
     const router= useRouter();
+
+    const notify = () => toast("Feature coming soon");
 
     const showNote =()=>{
       if (!user?.uid) {
@@ -164,16 +167,12 @@ const Recommendations: React.FC = () => {
                     })}
 
                     <Box p="10px 20px">
-                        <Button height="30px" width="100%" onClick={showNote}>
+                        <Button height="30px" width="100%" onClick={notify}>
                             View All
                         </Button>
                     </Box>
 
-                    {showMessage && 
-                         <Text textAlign="center" fontSize="10pt" color="red.400">
-                            Feature Comming Soon
-                         </Text>
-                    }
+                   <ToastContainer/>
                 </>
                 )}
             </Flex>
