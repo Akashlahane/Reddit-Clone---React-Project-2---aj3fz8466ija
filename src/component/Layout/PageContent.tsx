@@ -42,7 +42,7 @@ const PageContent: React.FC<PageContentProps> = ({ children }) => {
             borderColor="gray.300"
             borderRadius="8px 8px 8px 8px"
             position="sticky"
-            top="54px"
+            top="50px"
           >
             <Flex direction="row" justify="left" align="center" cursor="pointer" 
               onClick={() => setOrder(true)} bg={order ? "gray.300" : "white"}
