@@ -11,129 +11,120 @@ import { collection } from "firebase/firestore";
 import { User } from "firebase/auth";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; 
 
-const SignUp: React.FC= ()=>{
-  const setAuthModalState=useSetRecoilState(authModalState)
-  const [signUpForm, setSignUpForm] = useState({ email: "", password: "", confirmPassword: "",});
-  const [error, setError] =useState('')
+const SignUp: React.FC = () => {
+  const setAuthModalState = useSetRecoilState(authModalState);
+  const [signUpForm, setSignUpForm] = useState({ email: "", password: "", confirmPassword: "" });
+  const [error, setError] = useState('');
   const [createUserWithEmailAndPassword, userCred, loading, userError] = useCreateUserWithEmailAndPassword(auth);
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
-  //firebaselogic
-  const onSubmit=(event: React.FormEvent<HTMLFormElement>)=>{
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if(error){
+    if (error) {
       setError('');
     }
-    if(signUpForm.password !== signUpForm.confirmPassword){
-      //seterror
-      setError("Password do not match");
+    if (signUpForm.password !== signUpForm.confirmPassword) {
+      setError("Passwords do not match");
       return;
     }
     createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
   };
 
-  const onChange=(event: React.ChangeEvent<HTMLInputElement>)=>{
-      setSignUpForm( prev =>({
-            ...prev,
-            [event.target.name]: event.target.value,
-      }))
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSignUpForm(prev => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
   };
 
-  const createUserDocument = async(user: User)=>{
-    await addDoc(collection(firestore,"users"),JSON.parse(JSON.stringify(user)));
+  const createUserDocument = async (user: User) => {
+    await addDoc(collection(firestore, "users"), JSON.parse(JSON.stringify(user)));
   };
 
-  useEffect(()=>{
-    if(userCred){
+  useEffect(() => {
+    if (userCred) {
       createUserDocument(userCred.user);
     }
-  }, [userCred])
+  }, [userCred]);
 
-  return(
+  return (
     <form onSubmit={onSubmit}>
-      <Input required
-        name="email" placeholder="email"
-        type="email" 
-        mb={2} 
+      <Input
+        required
+        name="email"
+        placeholder="email"
+        type="email"
+        mb={2}
         onChange={onChange}
         fontSize="10pt"
-        _placeholder={{color: "gray.500"}}
-        _hover= {{
-            bg:'white',
-            border: '1px solid',
-            borderColor: 'blue.500',
-          }}
-
-        _focus= {{
-            outline: 'none',
-            bg:'white',
-            border: '1px solid',
-            borderColor: 'blue.500',
-          }}
-
-          bg="gray.50"
+        _placeholder={{ color: "gray.500" }}
+        _hover={{
+          bg: 'white',
+          border: '1px solid',
+          borderColor: 'blue.500',
+        }}
+        _focus={{
+          outline: 'none',
+          bg: 'white',
+          border: '1px solid',
+          borderColor: 'blue.500',
+        }}
+        bg="gray.50"
       />
 
       <Flex position="relative">
-        <Input required 
-          name="password" 
-          placeholder="password" 
-          type={showPassword ? "text" : "password"}  
-          mb={2} 
+        <Input
+          required
+          name="password"
+          placeholder="password"
+          type={showPassword ? "text" : "password"}
+          mb={2}
           onChange={onChange}
           fontSize="10pt"
-          _placeholder={{color: "gray.500"}}
-          _hover= {{
-              bg:'white',
-              border: '1px solid',
-              borderColor: 'blue.500',
-            }}
-
-          _focus= {{
-              outline: 'none',
-              bg:'white',
-              border: '1px solid',
-              borderColor: 'blue.500',
-            }}
-
-            bg="gray.50"
+          _placeholder={{ color: "gray.500" }}
+          _hover={{
+            bg: 'white',
+            border: '1px solid',
+            borderColor: 'blue.500',
+          }}
+          _focus={{
+            outline: 'none',
+            bg: 'white',
+            border: '1px solid',
+            borderColor: 'blue.500',
+          }}
+          bg="gray.50"
         />
-
-        <Flex onClick={() => setShowPassword(!showPassword)} position="absolute" 
-          right="3%" alignSelf="center" top="25%" zIndex={10}>
+        <Flex onClick={() => setShowPassword(!showPassword)} position="absolute" right="3%" alignSelf="center" top="25%" zIndex={10}>
           {!showPassword ? <FaEyeSlash /> : <FaEye />}
         </Flex>
-
       </Flex>
 
       <Flex position="relative">
-        <Input 
-          required 
-          name="confirmPassword" 
-          placeholder="confirm password" 
-          type={showPassword2 ? "text" : "password"}   
-          mb={2} 
+        <Input
+          required
+          name="confirmPassword"
+          placeholder="confirm password"
+          type={showPassword2 ? "text" : "password"}
+          mb={2}
           onChange={onChange}
           fontSize="10pt"
-          _placeholder={{color: "gray.500"}}
-          _hover= {{
-              bg:'white',
-              border: '1px solid',
-              borderColor: 'blue.500',
-            }}
-
-          _focus= {{
-              outline: 'none',
-              bg:'white',
-              border: '1px solid',
-              borderColor: 'blue.500',
-            }}
-
-            bg="gray.50"
+          _placeholder={{ color: "gray.500" }}
+          _hover={{
+            bg: 'white',
+            border: '1px solid',
+            borderColor: 'blue.500',
+          }}
+          _focus={{
+            outline: 'none',
+            bg: 'white',
+            border: '1px solid',
+            borderColor: 'blue.500',
+          }}
+          bg="gray.50"
         />
-
-        <Flex onClick={() => setShowPassword2(!showPassword)} position="absolute" 
-          right="3%" alignSelf="center" top="25%" zIndex={10}>
+        <Flex onClick={() => setShowPassword2(!showPassword2)} position="absolute" right="3%" alignSelf="center" top="25%" zIndex={10}>
           {!showPassword2 ? <FaEyeSlash /> : <FaEye />}
         </Flex>
       </Flex>
@@ -142,18 +133,27 @@ const SignUp: React.FC= ()=>{
         Password must have at least four characters, one number and one special character like '*', '@', '#'
       </Text>
 
-      {(error || userError) && (<Text textAlign="center" color="red" fontSize="10pt">{error || FIREBASE_ERRORS[userError?.message as keyof typeof FIREBASE_ERRORS]}</Text>)}
+      {(error || userError) && (
+        <Text textAlign="center" color="red" fontSize="10pt">
+          {error || FIREBASE_ERRORS[userError?.message as keyof typeof FIREBASE_ERRORS]}
+        </Text>
+      )}
 
       <Button width="100%" height="36px" mt={2} mb={2} type="submit" isLoading={loading}>SIGN UP</Button>
 
       <Flex fontSize="9pt" justifyContent="center">
-          <Text mr={1}>Already a redditor?</Text>
-          <Text color="blue.500" fontWeight={700} cursor="pointer" onClick={()=>
-            setAuthModalState((prev)=>({
-                ...prev,
-                view:"login",
-            }))
-          }>LOG IN</Text>
+        <Text mr={1}>Already a redditor?</Text>
+        <Text
+          color="blue.500"
+          fontWeight={700}
+          cursor="pointer"
+          onClick={() => setAuthModalState(prev => ({
+            ...prev,
+            view: "login",
+          }))}
+        >
+          LOG IN
+        </Text>
       </Flex>
     </form>
   );
