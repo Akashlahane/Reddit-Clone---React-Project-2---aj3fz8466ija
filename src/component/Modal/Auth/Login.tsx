@@ -53,6 +53,7 @@ const Login:React.FC<LoginProps> = ()=>{
           }}
 
           bg="gray.50"
+          width="280px"
       />
 
       <Flex position="relative">
