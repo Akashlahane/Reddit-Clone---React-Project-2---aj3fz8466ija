@@ -1,7 +1,7 @@
 import { Flex, Icon } from "@chakra-ui/react";
 import React from "react";
 import { Box } from "@chakra-ui/react";
-import { BsFire } from "react-icons/bs";
+import { BsArrowUpRightCircle } from "react-icons/bs";
 import { AiTwotoneStar } from "react-icons/ai";
 
 
@@ -31,7 +31,7 @@ const OrderPostby: React.FC<OrderPostbyProps> = ({order,setOrder}) => {
         borderRadius={15}
         padding="4px"
         mr={4}>
-        <Icon as={BsFire} fontSize={30} mr={1} />
+        <Icon as={BsArrowUpRightCircle} fontSize={30} mr={1} />
         <Box mr={2}>Popular</Box>
       </Flex>
 
