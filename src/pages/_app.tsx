@@ -4,9 +4,15 @@ import { theme } from "../chakra/theme";
 import Layout from '@/component/Layout/Layout';
 import { RecoilRoot } from 'recoil';
 import { ColorModeScript } from '@chakra-ui/react';
+import Head from 'next/head';
 
 function MyApp({Component, pageProps}: AppProps){
  return (
+  <>
+    <Head>
+     <link rel="icon" href="/images/redditicon.png" />    
+    </Head>
+
    <RecoilRoot>
     <ChakraProvider theme={theme}>
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
@@ -15,7 +21,7 @@ function MyApp({Component, pageProps}: AppProps){
      </Layout>
     </ChakraProvider>
    </RecoilRoot>
-
+  </>
  )
 }
 export default MyApp;

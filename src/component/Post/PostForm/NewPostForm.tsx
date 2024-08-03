@@ -15,6 +15,8 @@ import ImageUpload from "./ImageUpload";
 import { Post } from "../../../atoms/postsAtom";
 import { Text } from "@chakra-ui/react";
 import useSelectFile from "@/hooks/useSelectFile";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //import { v4 as uuidv4 } from 'uuid';
 
 const formTabs: TabItem[]= [
@@ -105,6 +107,11 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user, communityImageURL,}) =>
       [name]: value,
     }));
   };
+
+  const notify = () => toast("Feature coming soon");
+  if(selectedTab==="Link" || selectedTab==="Poll" || selectedTab==="Talk"){
+     notify();
+  }
  
   return (
     <Flex direction="column" bg="white" borderRadius={4} mt={2}>
@@ -146,6 +153,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user, communityImageURL,}) =>
           </Alert>
         )
       }
+       <ToastContainer/>
     </Flex>
   );
 };
